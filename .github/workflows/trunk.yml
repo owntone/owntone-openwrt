@@ -28,7 +28,7 @@ jobs:
     - name: Load git snapshot Makefile
       run: |
         rm -rf feeds/packages/sound/owntone
-        cp -a ../owntone-server feeds/packages/sound
+        cp -a ../owntone feeds/packages/sound
         git -C feeds/packages diff
         ./scripts/feeds install owntone
 

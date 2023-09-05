@@ -20,6 +20,8 @@ jobs:
 
     - name: Prepare build environment
       run: |
+        pwd
+        ls
         cd openwrt
         cp ../.config .
         cp ../feeds.conf .
@@ -27,6 +29,8 @@ jobs:
 
     - name: Load git snapshot Makefile
       run: |
+        pwd
+        ls
         rm -rf feeds/packages/sound/owntone
         cp -a ../owntone feeds/packages/sound
         git -C feeds/packages diff

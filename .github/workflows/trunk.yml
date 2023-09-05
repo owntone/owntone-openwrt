@@ -19,29 +19,28 @@ jobs:
         git clone https://github.com/openwrt/openwrt.git --single-branch
 
     - name: Prepare build environment
+      working-directory: ./openwrt
       run: |
-        pwd
-        ls
-        cd openwrt
         cp ../.config .
         cp ../feeds.conf .
         ./scripts/feeds update
 
     - name: Load git snapshot Makefile
+      working-directory: ./openwrt
       run: |
-        pwd
-        ls
         rm -rf feeds/packages/sound/owntone
         cp -a ../owntone feeds/packages/sound
         git -C feeds/packages diff
         ./scripts/feeds install owntone
 
     - name: Build tools and toolchain
+      working-directory: ./openwrt
       run: |
         make -j4 tools/install
         make -j4 toolchain/install
 
     - name: Build package
+      working-directory: ./openwrt
       run: |
         make V=s package/feeds/packages/owntone/compile
         make package/index

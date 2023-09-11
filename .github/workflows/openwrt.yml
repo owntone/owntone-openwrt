@@ -1,0 +1,65 @@
+name: OpenWrt
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install OpenWrt dependencies
+      run: |
+        sudo apt-get install subversion g++ zlib1g-dev gawk libncurses5-dev libxml-parser-perl
+
+    - name: Cache OpenWrt
+      id: cache-image
+      uses: actions/cache@v3
+      with:
+        path: openwrt.tgz
+        key: openwrt
+
+    - name: Restore build environment from cache
+      if: steps.cache-image.outputs.cache-hit == 'true'
+      run: |
+        tar xzf openwrt.tgz
+
+    - name: Get OpenWrt and configure
+      # To modify OpenWrt config, run make menuconfig and then
+      #./scripts/diffconfig to generate the diffconfig file
+      if: steps.cache-image.outputs.cache-hit != 'true'
+      run: |
+        git clone https://github.com/openwrt/openwrt.git --single-branch
+        cp feeds.conf openwrt/feeds.conf
+        cp diffconfig openwrt/.config
+        cd openwrt
+        ./scripts/feeds update -a
+        ./scripts/feeds install owntone
+        make defconfig
+    - name: Build tools, toolchain and current OwnTone from openwrt/packages
+      # We build current OwnTone in packages to get all the dependencies built
+      # so they can be cached. Also works as a check that everything is working.
+      if: steps.cache-image.outputs.cache-hit != 'true'
+      working-directory: openwrt
+      run: |
+        make -j4 tools/install
+        make -j4 toolchain/install
+        make -j4 package/feeds/packages/owntone/compile
+    - name: Create build environment cache
+      if: steps.cache-image.outputs.cache-hit != 'true'
+      run: |
+        tar czf openwrt.tgz openwrt
+
+    - name: Build OwnTone with new Makefile
+      working-directory: openwrt
+      run: |
+        make package/feeds/packages/owntone/clean
+        rm -rf build_dir/target-i386_pention4_musl/owntone*
+        rm dl/owntone*
+        rm -rf feeds/packages/sound/owntone
+        cp -a ../owntone feeds/packages/sound
+        git -C feeds/packages diff
+        make V=s package/feeds/packages/owntone/compile
+        make package/index

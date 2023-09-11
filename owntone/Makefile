@@ -19,7 +19,7 @@ PKG_SOURCE_URL:=https://github.com/owntone/owntone-server.git
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_FIXUP:=autoreconf
-PKG_BUILD_FLAGS:=no-mip16
+PKG_BUILD_FLAGS:=no-mips16
 PKG_INSTALL:=1
 
 PKG_MAINTAINER:=Espen Jürgensen <espenjurgensen+openwrt@gmail.com>

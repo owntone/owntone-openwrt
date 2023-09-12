@@ -57,7 +57,6 @@ jobs:
       run: |
         make package/feeds/packages/owntone/clean
         rm -rf build_dir/target-i386_pention4_musl/owntone*
-        rm dl/owntone*
         rm -rf feeds/packages/sound/owntone
         cp -a ../owntone feeds/packages/sound
         git -C feeds/packages diff

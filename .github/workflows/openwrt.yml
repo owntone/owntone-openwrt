@@ -51,6 +51,13 @@ jobs:
       if: steps.cache-image.outputs.cache-hit != 'true'
       run: |
         tar czf openwrt.tgz openwrt
+    - uses: actions/cache/save@v3
+      # Save cache now, we want to have it if the next step fails and needs to
+      # be run again
+      if: steps.cache-image.outputs.cache-hit != 'true'
+      with:
+        path: openwrt.tgz
+        key: openwrt
 
     - name: Build OwnTone with new Makefile
       working-directory: openwrt

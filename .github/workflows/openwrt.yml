@@ -46,7 +46,7 @@ jobs:
       run: |
         make -j4 tools/install
         make -j4 toolchain/install
-        make -j4 package/feeds/packages/owntone/compile
+        make -j1 V=s package/feeds/packages/owntone/compile
     - name: Create build environment cache
       if: steps.cache-image.outputs.cache-hit != 'true'
       run: |

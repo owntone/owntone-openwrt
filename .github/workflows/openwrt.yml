@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install OpenWrt dependencies
       run: |
@@ -16,7 +16,7 @@ jobs:
 
     - name: Cache OpenWrt
       id: cache-image
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: openwrt.tgz
         key: openwrt

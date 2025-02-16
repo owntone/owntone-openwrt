@@ -9,24 +9,25 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=owntone
 PKG_VERSION:=28.11
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 # Git snapshot
-#PKG_REV:=
-#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-#PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-#PKG_SOURCE_PROTO:=git
-#PKG_SOURCE_URL:=https://github.com/owntone/owntone-server.git
-#PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_REV:=04789e995c3ca7d67a7cd7e01fe64ccb6c465d32
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/owntone/owntone-server.git
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 # Release
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-PKG_SOURCE_URL:=https://github.com/owntone/owntone-server/releases/download/$(PKG_VERSION)/
-PKG_HASH:=98538566a993638ec569fc44ea2c7a7fcb5dd925c47b84b64ac2d63fc8b056b8
+#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+#PKG_SOURCE_URL:=https://github.com/owntone/owntone-server/releases/download/$(PKG_VERSION)/
+#PKG_HASH:=98538566a993638ec569fc44ea2c7a7fcb5dd925c47b84b64ac2d63fc8b056b8
 
 PKG_FIXUP:=autoreconf
 PKG_BUILD_FLAGS:=no-mips16
 PKG_INSTALL:=1
+PKG_BUILD_DEPENDS:=node/host
 
 PKG_MAINTAINER:=Espen Jürgensen <espenjurgensen+openwrt@gmail.com>
 PKG_LICENSE:=GPL-2.0
@@ -63,7 +64,6 @@ CONFIGURE_ARGS += \
 	--disable-install_conf_file \
 	--disable-install_user \
 	--with-alsa \
-	--without-libevent_pthreads \
 	--without-pulseaudio
 
 TARGET_CFLAGS += $(FPIC)

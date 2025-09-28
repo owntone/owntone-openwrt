@@ -8,21 +8,21 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=owntone
-PKG_VERSION:=28.12
+PKG_VERSION:=29.0
 PKG_RELEASE:=1
 
 # Git snapshot
-PKG_REV:=387660d96ba826230c71ee6985145cc431cb2599
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/owntone/owntone-server.git
-PKG_SOURCE_VERSION:=$(PKG_REV)
+#PKG_REV:=387660d96ba826230c71ee6985145cc431cb2599
+#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+#PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+#PKG_SOURCE_PROTO:=git
+#PKG_SOURCE_URL:=https://github.com/owntone/owntone-server.git
+#PKG_SOURCE_VERSION:=$(PKG_REV)
 
 # Release
-#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-#PKG_SOURCE_URL:=https://github.com/owntone/owntone-server/releases/download/$(PKG_VERSION)/
-#PKG_HASH:=98538566a993638ec569fc44ea2c7a7fcb5dd925c47b84b64ac2d63fc8b056b8
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
+PKG_SOURCE_URL:=https://github.com/owntone/owntone-server/releases/download/$(PKG_VERSION)/
+PKG_HASH:=b9cbb9521aed06253b05902a8393a12cd0214d29a7f174855af9ff15a3742b0d
 
 PKG_FIXUP:=autoreconf
 PKG_BUILD_FLAGS:=no-mips16
